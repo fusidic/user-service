@@ -43,7 +43,7 @@ func (srv *service) Auth(ctx context.Context, req *pb.User, res *pb.Token) error
 }
 
 func (srv *service) Create(ctx context.Context, req *pb.User, res *pb.Response) error {
-	if err := srv.repo.Create(ctx, req); err != nil {
+	if err := srv.repo.Create(req); err != nil {
 		return err
 	}
 	res.User = req

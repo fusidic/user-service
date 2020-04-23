@@ -7,17 +7,20 @@ import (
 	"golang.org/x/net/context"
 )
 
+// Repository ...
 type Repository interface {
 	GetAll(ctx context.Context) ([]*pb.User, error)
 	Get(ctx context.Context, id string) (*pb.User, error)
-	Create(ctx context.Context, user *pb.User) error
+	Create(user *pb.User) error
 	GetByEmailAndPassword(user *pb.User) (*pb.User, error)
 }
 
+// UserRepository ...
 type UserRepository struct {
 	db *gorm.DB
 }
 
+// GetAll ...
 func (repo *UserRepository) GetAll(ctx context.Context) ([]*pb.User, error) {
 	var users []*pb.User
 	if err := repo.db.Find(&users).Error; err != nil {

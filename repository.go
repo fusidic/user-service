@@ -29,6 +29,7 @@ func (repo *UserRepository) GetAll(ctx context.Context) ([]*pb.User, error) {
 	return users, nil
 }
 
+// Get ...
 func (repo *UserRepository) Get(ctx context.Context, id string) (*pb.User, error) {
 	var user *pb.User
 	user.Id = id

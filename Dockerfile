@@ -12,7 +12,7 @@ COPY . .
 
 RUN go mod tidy
 RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o user-service repository.go handler.go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o user-service repository.go handler.go main.go database.go
 
 # Run container
 FROM alpine:latest

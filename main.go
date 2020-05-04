@@ -25,8 +25,7 @@ func main() {
 
 	repo := &UserRepository{db}
 
-	// 暂时不用
-	// tokenService := &tokenService{repo}
+	tokenService := &TokenService{repo}
 
 	// 创建服务
 	srv := micro.NewService(
@@ -38,7 +37,7 @@ func main() {
 
 	srv.Init()
 
-	pb.RegisterUserServiceHandler(srv.Server(), &service{repo})
+	pb.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService})
 
 	if err := srv.Run(); err != nil {
 		fmt.Println(err)

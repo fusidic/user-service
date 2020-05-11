@@ -38,9 +38,9 @@ func main() {
 	// Init 方法会解析所有命令行参数
 	srv.Init()
 
-	pubsub := srv.Server().Options().Broker
+	publisher := micro.NewPublisher("user.created", srv.Client())
 
-	pb.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService, pubsub})
+	pb.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService, publisher})
 
 	if err := srv.Run(); err != nil {
 		fmt.Println(err)

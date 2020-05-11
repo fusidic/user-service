@@ -35,9 +35,12 @@ func main() {
 		micro.Version("latest"),
 	)
 
+	// Init 方法会解析所有命令行参数
 	srv.Init()
 
-	pb.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService})
+	pubsub := srv.Server().Options().Broker
+
+	pb.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService, pubsub})
 
 	if err := srv.Run(); err != nil {
 		fmt.Println(err)

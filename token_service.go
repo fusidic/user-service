@@ -31,15 +31,15 @@ type TokenService struct {
 }
 
 // Decode 将token字符串解码为token对象
-func (srv *TokenService) Decode(token string) (*CustomClaims, error) {
+func (srv *TokenService) Decode(tokenString string) (*CustomClaims, error) {
 
-	// 解析token
-	tokenType, err := jwt.ParseWithClaims(string(key), &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+	// Parse the token
+	token, err := jwt.ParseWithClaims(tokenString, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return key, nil
 	})
 
-	// 验证token并返回custom claims
-	if claims, ok := tokenType.Claims.(*CustomClaims); ok && tokenType.Valid {
+	// Validate the token and return the custom claims
+	if claims, ok := token.Claims.(*CustomClaims); ok && token.Valid {
 		return claims, nil
 	}
 	return nil, err
